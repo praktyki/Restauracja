@@ -2,25 +2,30 @@ package com.krzysztof.restaurant.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 
+
+@Entity
+@Inheritance
 public class GroupOrder extends Order{
 
-	private List<Order> listOfOrders = new ArrayList<>();
+	private Collection<Order> collectionOfOrders = new ArrayList<>();
 	
-	public List<Order> getListOfOrders() {
-		return listOfOrders;
+	public Collection<Order> getCollectionOfOrders() {
+		return collectionOfOrders;
 	}
 
-	public void setListOfOrders(List<Order> listOfOrders) {
-		this.listOfOrders = listOfOrders;
+	public void setCollectionOfOrders(Collection<Order> collectionOfOrders) {
+		this.collectionOfOrders = collectionOfOrders;
 	}
 
 	@Override
 	public BigDecimal getCost() {
 		BigDecimal orderCost = new BigDecimal(0);
 		
-		for(Order order : listOfOrders){
+		for(Order order : collectionOfOrders){
 			orderCost = orderCost.add(order.getCost());
 		}
 		
