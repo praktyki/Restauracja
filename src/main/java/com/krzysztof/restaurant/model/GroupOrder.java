@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
+import javax.persistence.OneToMany;
 
 
 @Entity
 @Inheritance
 public class GroupOrder extends Order{
 
+	@OneToMany
 	private Collection<Order> collectionOfOrders = new ArrayList<>();
 	
 	public Collection<Order> getCollectionOfOrders() {

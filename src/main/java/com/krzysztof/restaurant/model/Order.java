@@ -3,17 +3,20 @@ package com.krzysztof.restaurant.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Order extends Entity{
+public abstract class Order extends AbstractEntity{
+	
 	
 	private Date creationDate;
 	
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private Status orderStatus;
-	private Long tableId;
+	
+	
 	
 	public Status getOrderStatus() {
 		return orderStatus;
@@ -23,13 +26,6 @@ public abstract class Order extends Entity{
 		this.orderStatus = orderStatus;
 	}
 
-	public Long getTableId() {
-		return tableId;
-	}
-
-	public void setTableId(Long tableId) {
-		this.tableId = tableId;
-	}
 
 	public abstract BigDecimal getCost();
 	

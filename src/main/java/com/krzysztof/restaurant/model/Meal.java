@@ -1,10 +1,13 @@
 package com.krzysztof.restaurant.model;
 
 import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 
-public class Meal {
+@Entity
+@Inheritance
+public class Meal extends AbstractEntity {
 	
-	private long mealId;
 	private String name;
 	private BigDecimal cost;
 	
@@ -19,11 +22,5 @@ public class Meal {
 	}
 	public void setCost(BigDecimal cost) {
 		this.cost = cost;
-	}
-	public long getMealId() {
-		return mealId;
-	}
-	public void setMealId(long mealId) {
-		this.mealId = mealId;
 	}
 }
