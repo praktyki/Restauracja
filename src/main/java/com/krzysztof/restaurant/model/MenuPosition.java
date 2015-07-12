@@ -1,14 +1,16 @@
 package com.krzysztof.restaurant.model;
 
 import java.math.BigDecimal;
+
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
+import javax.validation.constraints.Digits;
+
 
 @Entity
-@Inheritance
-public class Meal extends AbstractEntity {
+public class MenuPosition extends AbstractEntity {
 	
 	private String name;
+	@Digits(integer=7, fraction=2)
 	private BigDecimal cost;
 	
 	public String getName() {

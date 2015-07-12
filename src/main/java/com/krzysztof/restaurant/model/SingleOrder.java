@@ -1,35 +1,33 @@
 package com.krzysztof.restaurant.model;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
+import javax.persistence.OneToMany;
 
+import com.krzysztof.restaurant.helpers.Receipt;
 
 @Entity
-@Inheritance
-public class SingleOrder extends Order{
-	
-	private Meal meal;
-	
-	
-	
-	public Meal getMeal() {
-		return meal;
+public class SingleOrder extends AbstractOrder {
+
+	@OneToMany
+	private Collection<MenuPosition> collectionOfMenuPositions = new ArrayList<>();
+
+	public Collection<MenuPosition> getCollectionOfMenuPositions() {
+		return collectionOfMenuPositions;
 	}
 
-
-
-	public void setMeal(Meal meal) {
-		this.meal = meal;
+	public void setCollectionOfMenuPositions(Collection<MenuPosition> collectionOfMenuPositions) {
+		this.collectionOfMenuPositions = collectionOfMenuPositions;
 	}
-
 
 
 	@Override
-	public BigDecimal getCost() {
-		// TODO Auto-generated method stub
-		return null;
+	public Receipt getReceipt() {
+		Receipt receipt = new Receipt();
+		receipt.addMenuPositions(collectionOfMenuPositions);
+		return receipt;
 	}
 
 }

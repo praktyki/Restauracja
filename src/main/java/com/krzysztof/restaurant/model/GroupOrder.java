@@ -1,37 +1,38 @@
 package com.krzysztof.restaurant.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
 import javax.persistence.OneToMany;
+
+import com.krzysztof.restaurant.helpers.Receipt;
 
 
 @Entity
-@Inheritance
-public class GroupOrder extends Order{
+public class GroupOrder extends AbstractOrder{
 
 	@OneToMany
-	private Collection<Order> collectionOfOrders = new ArrayList<>();
+	private Collection<AbstractOrder> collectionOfOrders = new ArrayList<>();
 	
-	public Collection<Order> getCollectionOfOrders() {
+	public Collection<AbstractOrder> getCollectionOfOrders() {
 		return collectionOfOrders;
 	}
 
-	public void setCollectionOfOrders(Collection<Order> collectionOfOrders) {
+	public void setCollectionOfOrders(Collection<AbstractOrder> collectionOfOrders) {
 		this.collectionOfOrders = collectionOfOrders;
 	}
 
+
 	@Override
-	public BigDecimal getCost() {
-		BigDecimal orderCost = new BigDecimal(0);
+	public Receipt getReceipt() {
+		Receipt receipt = new Receipt();
 		
-		for(Order order : collectionOfOrders){
-			orderCost = orderCost.add(order.getCost());
+		for(AbstractOrder order : collectionOfOrders){
+			receipt.addReceipt(order.getReceipt());
 		}
 		
-		return orderCost;
+		return receipt;
 	}
 
 }

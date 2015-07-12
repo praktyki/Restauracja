@@ -1,23 +1,23 @@
 package com.krzysztof.restaurant.model;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
 
-@MappedSuperclass
-public abstract class Order extends AbstractEntity{
-	
-	
+import com.krzysztof.restaurant.helpers.Receipt;
+
+@Entity
+@Inheritance
+public abstract class AbstractOrder extends AbstractEntity {
+
 	private Date creationDate;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status orderStatus;
-	
-	
-	
+
 	public Status getOrderStatus() {
 		return orderStatus;
 	}
@@ -26,14 +26,14 @@ public abstract class Order extends AbstractEntity{
 		this.orderStatus = orderStatus;
 	}
 
-
-	public abstract BigDecimal getCost();
-	
 	public Date getCreationDate() {
 		return creationDate;
 	}
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
-	}	
+	}
+	
+	public abstract Receipt getReceipt();
+	
 }
