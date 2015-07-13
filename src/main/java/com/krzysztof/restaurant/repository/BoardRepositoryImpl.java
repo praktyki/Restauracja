@@ -9,8 +9,11 @@ import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
+
 import com.krzysztof.restaurant.model.Board;
 
+@Repository
 public class BoardRepositoryImpl implements BoardRepositoryCustom {
 
 	@PersistenceContext
@@ -18,7 +21,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
 
 	@Override
 	public Collection<Board> findAllFreeBoards() {
-		TypedQuery<Board> createQuery = entityManager.createQuery("", Board.class);
+		TypedQuery<Board> createQuery = entityManager.createQuery("SELECT b FROM Board b WHERE b.collectionOfOrders",
+				Board.class);
 		createQuery.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 		List<Board> resultList = createQuery.getResultList();
 		return resultList == null ? Collections.emptyList() : resultList;

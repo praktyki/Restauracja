@@ -11,22 +11,22 @@ import com.krzysztof.restaurant.helpers.Receipt;
 import com.krzysztof.restaurant.model.AbstractOrder;
 import com.krzysztof.restaurant.model.Board;
 import com.krzysztof.restaurant.model.SingleOrder;
-import com.krzysztof.restaurant.repository.BoardRepository;
+import com.krzysztof.restaurant.repository.BoardRepositoryCustom;
 import com.krzysztof.restaurant.repository.OrderRepository;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
-	private BoardRepository boardRepository;
+	private BoardRepositoryCustom boardRepositoryCustom;
 	private OrderRepository orderRepository;
 
 	@Override
-	public void addGroupOrder(Collection<SingleOrder> collectionOfOrders) {
+	public void addGroupOrder(Collection<SingleOrder> collectionOfOrders, int id) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void addSingleOrder(SingleOrder singleOrder) {
+	public void addSingleOrder(SingleOrder singleOrder, int id) {
 		// TODO Auto-generated method stub
 
 	}
@@ -44,20 +44,26 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	@Transactional // ?spring czy javax?
-	public Collection<Board> getFreeBoards() {
-		return boardRepository.findAllFreeBoards();
+	public Board getBoardById(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Receipt getReceipt(long AbstractOrderId) {
+	@Transactional
+	public Collection<Board> getFreeBoards() {
+		return boardRepositoryCustom.findAllFreeBoards();
+	}
+
+	@Override
+	public Receipt getReceipt(long AbstractOrderId, int orderId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Autowired
-	public void setRepositories(BoardRepository boardRepository, OrderRepository orderRepository) {
-		this.boardRepository = boardRepository;
+	public void setRepositories(BoardRepositoryCustom boardRepositoryCustom, OrderRepository orderRepository) {
+		this.boardRepositoryCustom = boardRepositoryCustom;
 		this.orderRepository = orderRepository;
 	}
 }

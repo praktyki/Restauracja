@@ -1,0 +1,1 @@
+INSERT INTO board (version, capacity) VALUES (1,8),(1,8),(1,8),(1,8),(1,8);
