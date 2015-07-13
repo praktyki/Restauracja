@@ -5,13 +5,14 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.krzysztof.restaurant.helpers.Receipt;
+import com.krzysztof.restaurant.model.Board;
 import com.krzysztof.restaurant.model.SingleOrder;
 import com.krzysztof.restaurant.service.RestaurantService;
 
@@ -20,40 +21,39 @@ public class RestaurantController {
 
 	private RestaurantService restaurantService;
 
-	@RequestMapping(value = "/table/{id}/order", method = RequestMethod.POST)
+	@RequestMapping(value = "/table/{boardId}/order", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> addOrder(@PathVariable("id") int id, @Valid SingleOrder singleOrder) {
+	public void addOrder(@PathVariable("boardId") int id, @Valid SingleOrder singleOrder) {
 		restaurantService.addSingleOrder(singleOrder, id);
 	}
 
-	@RequestMapping(value = "/table/{id}/orders", method = RequestMethod.POST)
+	@RequestMapping(value = "/table/{boardId}/orders", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> addOrders(@PathVariable("id") int id,
-			@Valid Collection<SingleOrder> collectionOfOrders) {
+	public void addOrders(@PathVariable("boardId") int id, @Valid Collection<SingleOrder> collectionOfOrders) {
 		restaurantService.addGroupOrder(collectionOfOrders, id);
 	}
 
 	@RequestMapping(value = "/tables", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> getAllBoards() {
+	public Collection<Board> getAllBoards() {
 		return restaurantService.getAllBoards();
 	}
 
-	@RequestMapping(value = "/table/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/table/{boardId}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> getBoardById(@PathVariable("id") int id) {
+	public Board getBoardById(@PathVariable("boardId") int id) {
 		return restaurantService.getBoardById(id);
 	}
 
 	@RequestMapping("/tables/free")
 	@ResponseBody
-	public ResponseEntity<String> getFreeBoards() {
+	public Collection<Board> getFreeBoards() {
 		return restaurantService.getFreeBoards();
 	}
 
-	@RequestMapping(value = "/table/{id}/order/{orderId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/table/{boardId}/order/{orderId}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> getReceipt(@PathVariable("id") int id, @PathVariable("orderId") int orderId) {
+	public Receipt getReceipt(@PathVariable("boardId") int id, @PathVariable("orderId") int orderId) {
 		return restaurantService.getReceipt(id, orderId);
 	}
 
