@@ -25,9 +25,7 @@ public class SingleOrder extends AbstractOrder {
 
 	@Override
 	public Receipt getReceipt() {
-		Receipt receipt = new Receipt();
-		receipt.addMenuPositions(collectionOfMenuPositions);
-		return receipt;
+		return new Receipt(collectionOfMenuPositions);
 	}
 
 }
