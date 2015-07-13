@@ -10,60 +10,69 @@ import org.springframework.stereotype.Service;
 import com.krzysztof.restaurant.helpers.Receipt;
 import com.krzysztof.restaurant.model.AbstractOrder;
 import com.krzysztof.restaurant.model.Board;
+import com.krzysztof.restaurant.model.GroupOrder;
 import com.krzysztof.restaurant.model.SingleOrder;
+import com.krzysztof.restaurant.repository.BoardRepository;
 import com.krzysztof.restaurant.repository.BoardRepositoryCustom;
 import com.krzysztof.restaurant.repository.OrderRepository;
 
 @Service
+@Transactional
 public class RestaurantServiceImpl implements RestaurantService {
+	private BoardRepository boardRepository;
 	private BoardRepositoryCustom boardRepositoryCustom;
 	private OrderRepository orderRepository;
 
 	@Override
-	public void addGroupOrder(Collection<SingleOrder> collectionOfOrders, int id) {
-		// TODO Auto-generated method stub
+	public void addGroupOrder(Collection<SingleOrder> collectionOfOrders,
+			long boardId) {
+		Board board = boardRepository.findOne(boardId);
+		board.getOrdersCollection().addAll(collectionOfOrders);
+		GroupOrder groupOrder = new GroupOrder();
 
 	}
 
 	@Override
-	public void addSingleOrder(SingleOrder singleOrder, int id) {
+	public void addSingleOrder(SingleOrder singleOrder, long boardId) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public Collection<Board> getAllBoards() {
+		return null;
+	}
+
+	@Override
+	public Collection<AbstractOrder> getAllOrders(long boardId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<AbstractOrder> getAllOrders(long tableId) {
+	public Board getBoardById(long boardId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Board getBoardById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Transactional
 	public Collection<Board> getFreeBoards() {
 		return boardRepositoryCustom.findAllFreeBoards();
 	}
 
 	@Override
-	public Receipt getReceipt(long AbstractOrderId, int orderId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Receipt getReceipt(long AbstractOrderId, long boardId) {
+		AbstractOrder abstractOrder = orderRepository.findOne(boardId);
+		Receipt receipt = abstractOrder.getReceipt();
+		orderRepository.save(abstractOrder);
+		return receipt;
 	}
 
 	@Autowired
-	public void setRepositories(BoardRepositoryCustom boardRepositoryCustom, OrderRepository orderRepository) {
+	public void setRepositories(BoardRepositoryCustom boardRepositoryCustom,
+			OrderRepository orderRepository, BoardRepository boardRepository) {
 		this.boardRepositoryCustom = boardRepositoryCustom;
 		this.orderRepository = orderRepository;
+		this.boardRepository = boardRepository;
 	}
 }

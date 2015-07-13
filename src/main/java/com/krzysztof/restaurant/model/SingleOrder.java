@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.krzysztof.restaurant.helpers.Receipt;
@@ -12,7 +13,7 @@ import com.krzysztof.restaurant.helpers.Receipt;
 @Entity
 public class SingleOrder extends AbstractOrder {
 
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	private Collection<MenuPosition> collectionOfMenuPositions = new ArrayList<>();
 
 	public Collection<MenuPosition> getCollectionOfMenuPositions() {
@@ -21,10 +22,12 @@ public class SingleOrder extends AbstractOrder {
 
 	@Override
 	public Receipt getReceipt() {
+		setOrderStatus(Status.CHECKOUT);
 		return new Receipt(collectionOfMenuPositions);
 	}
 
-	public void setCollectionOfMenuPositions(Collection<MenuPosition> collectionOfMenuPositions) {
+	public void setCollectionOfMenuPositions(
+			Collection<MenuPosition> collectionOfMenuPositions) {
 		this.collectionOfMenuPositions = collectionOfMenuPositions;
 	}
 

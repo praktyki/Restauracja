@@ -23,14 +23,16 @@ public class RestaurantController {
 
 	@RequestMapping(value = "/table/{boardId}/order", method = RequestMethod.POST)
 	@ResponseBody
-	public void addOrder(@PathVariable("boardId") int id, @Valid SingleOrder singleOrder) {
-		restaurantService.addSingleOrder(singleOrder, id);
+	public void addOrder(@PathVariable("boardId") int boardId,
+			@Valid SingleOrder singleOrder) {
+		restaurantService.addSingleOrder(singleOrder, boardId);
 	}
 
 	@RequestMapping(value = "/table/{boardId}/orders", method = RequestMethod.POST)
 	@ResponseBody
-	public void addOrders(@PathVariable("boardId") int id, @Valid Collection<SingleOrder> collectionOfOrders) {
-		restaurantService.addGroupOrder(collectionOfOrders, id);
+	public void addOrders(@PathVariable("boardId") int boardId,
+			@Valid Collection<SingleOrder> collectionOfOrders) {
+		restaurantService.addGroupOrder(collectionOfOrders, boardId);
 	}
 
 	@RequestMapping(value = "/tables", method = RequestMethod.GET)
@@ -41,8 +43,8 @@ public class RestaurantController {
 
 	@RequestMapping(value = "/table/{boardId}", method = RequestMethod.GET)
 	@ResponseBody
-	public Board getBoardById(@PathVariable("boardId") int id) {
-		return restaurantService.getBoardById(id);
+	public Board getBoardById(@PathVariable("boardId") int boardId) {
+		return restaurantService.getBoardById(boardId);
 	}
 
 	@RequestMapping("/tables/free")
@@ -53,8 +55,9 @@ public class RestaurantController {
 
 	@RequestMapping(value = "/table/{boardId}/order/{orderId}", method = RequestMethod.GET)
 	@ResponseBody
-	public Receipt getReceipt(@PathVariable("boardId") int id, @PathVariable("orderId") int orderId) {
-		return restaurantService.getReceipt(id, orderId);
+	public Receipt getReceipt(@PathVariable("boardId") int boardId,
+			@PathVariable("orderId") int orderId) {
+		return restaurantService.getReceipt(boardId, orderId);
 	}
 
 	@Autowired

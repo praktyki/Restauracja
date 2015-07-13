@@ -8,17 +8,17 @@ import com.krzysztof.restaurant.model.Board;
 import com.krzysztof.restaurant.model.SingleOrder;
 
 public interface RestaurantService {
-	void addGroupOrder(Collection<SingleOrder> collectionOfOrders, int id);
+	void addGroupOrder(Collection<SingleOrder> collectionOfOrders, long boardId);
 
-	void addSingleOrder(SingleOrder singleOrder, int id);
+	void addSingleOrder(SingleOrder singleOrder, long boardId);
 
 	Collection<Board> getAllBoards();
 
 	Collection<AbstractOrder> getAllOrders(long tableId);
 
-	Board getBoardById(int id);
+	Board getBoardById(long boardId);
 
 	Collection<Board> getFreeBoards();
 
-	Receipt getReceipt(long AbstractOrderId, int orderId);
+	Receipt getReceipt(long AbstractOrderId, long boardId);
 }

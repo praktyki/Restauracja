@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.krzysztof.restaurant.helpers.Receipt;
@@ -12,8 +13,13 @@ import com.krzysztof.restaurant.helpers.Receipt;
 @Entity
 public class GroupOrder extends AbstractOrder {
 
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	private Collection<AbstractOrder> collectionOfOrders = new ArrayList<>();
+
+	public GroupOrder(Collection<AbstractOrder> abstractOrders) {
+		collectionOfOrders = abstractOrders;
+
+	}
 
 	public Collection<AbstractOrder> getCollectionOfOrders() {
 		return collectionOfOrders;
@@ -27,10 +33,13 @@ public class GroupOrder extends AbstractOrder {
 			receipt.addReceipt(order.getReceipt());
 		}
 
+		setOrderStatus(Status.CHECKOUT);
+
 		return receipt;
 	}
 
-	public void setCollectionOfOrders(Collection<AbstractOrder> collectionOfOrders) {
+	public void setCollectionOfOrders(
+			Collection<AbstractOrder> collectionOfOrders) {
 		this.collectionOfOrders = collectionOfOrders;
 	}
 

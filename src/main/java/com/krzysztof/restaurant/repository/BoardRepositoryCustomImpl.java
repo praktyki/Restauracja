@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.krzysztof.restaurant.model.Board;
 
 @Repository
-public class BoardRepositoryImpl implements BoardRepositoryCustom {
+public class BoardRepositoryCustomImpl implements BoardRepositoryCustom {
 
 	@PersistenceContext
 	EntityManager entityManager;
