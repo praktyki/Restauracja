@@ -8,31 +8,29 @@ import javax.persistence.OneToMany;
 
 import com.krzysztof.restaurant.helpers.Receipt;
 
-
 @Entity
-public class GroupOrder extends AbstractOrder{
+public class GroupOrder extends AbstractOrder {
 
-	@OneToMany
+	@OneToMany(cascade = javax.persistence.CascadeType.MERGE)
 	private Collection<AbstractOrder> collectionOfOrders = new ArrayList<>();
-	
+
 	public Collection<AbstractOrder> getCollectionOfOrders() {
 		return collectionOfOrders;
 	}
 
-	public void setCollectionOfOrders(Collection<AbstractOrder> collectionOfOrders) {
-		this.collectionOfOrders = collectionOfOrders;
-	}
-
-
 	@Override
 	public Receipt getReceipt() {
 		Receipt receipt = new Receipt();
-		
-		for(AbstractOrder order : collectionOfOrders){
+
+		for (AbstractOrder order : collectionOfOrders) {
 			receipt.addReceipt(order.getReceipt());
 		}
-		
+
 		return receipt;
+	}
+
+	public void setCollectionOfOrders(Collection<AbstractOrder> collectionOfOrders) {
+		this.collectionOfOrders = collectionOfOrders;
 	}
 
 }

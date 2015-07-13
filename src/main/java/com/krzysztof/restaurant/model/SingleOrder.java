@@ -11,21 +11,20 @@ import com.krzysztof.restaurant.helpers.Receipt;
 @Entity
 public class SingleOrder extends AbstractOrder {
 
-	@OneToMany
+	@OneToMany(cascade = javax.persistence.CascadeType.MERGE)
 	private Collection<MenuPosition> collectionOfMenuPositions = new ArrayList<>();
 
 	public Collection<MenuPosition> getCollectionOfMenuPositions() {
 		return collectionOfMenuPositions;
 	}
 
-	public void setCollectionOfMenuPositions(Collection<MenuPosition> collectionOfMenuPositions) {
-		this.collectionOfMenuPositions = collectionOfMenuPositions;
-	}
-
-
 	@Override
 	public Receipt getReceipt() {
 		return new Receipt(collectionOfMenuPositions);
+	}
+
+	public void setCollectionOfMenuPositions(Collection<MenuPosition> collectionOfMenuPositions) {
+		this.collectionOfMenuPositions = collectionOfMenuPositions;
 	}
 
 }
