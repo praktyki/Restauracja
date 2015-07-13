@@ -2,6 +2,8 @@ package com.krzysztof.restaurant.service;
 
 import java.util.Collection;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +44,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional // ?spring czy javax?
 	public Collection<Board> getFreeBoards() {
-		// TODO Auto-generated method stub
-		return null;
+		return boardRepository.findAllFreeBoards();
 	}
 
 	@Override

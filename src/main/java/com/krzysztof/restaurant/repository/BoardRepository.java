@@ -11,6 +11,6 @@ import com.krzysztof.restaurant.model.Board;
 @Repository
 public interface BoardRepository extends CrudRepository<Board, Long> {
 
-	@Query("SELECT board FROM ... where ")
+	@Query("SELECT board FROM ... WHERE ")
 	Collection<Board> findAllFreeBoards();
 }
