@@ -1,11 +1,11 @@
 package com.krzysztof.restaurant.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
 import com.krzysztof.restaurant.model.Board;
 
-@RepositoryRestResource
+@Repository
 public interface BoardRepository extends CrudRepository<Board, Long>{
 
 }
