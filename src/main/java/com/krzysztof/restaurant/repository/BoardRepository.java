@@ -13,4 +13,7 @@ public interface BoardRepository extends CrudRepository<Board, Long> {
 
 	@Query("SELECT board FROM ... WHERE ")
 	Collection<Board> findAllFreeBoards();
+
+	@Query("SELECT b.version FROM Board b WHERE b.id = ")
+	int getVersionField(long boardId);
 }

@@ -3,6 +3,7 @@ package com.krzysztof.restaurant.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -11,7 +12,7 @@ import com.krzysztof.restaurant.helpers.Receipt;
 @Entity
 public class SingleOrder extends AbstractOrder {
 
-	@OneToMany(cascade = javax.persistence.CascadeType.MERGE)
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private Collection<MenuPosition> collectionOfMenuPositions = new ArrayList<>();
 
 	public Collection<MenuPosition> getCollectionOfMenuPositions() {
