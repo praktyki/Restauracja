@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.krzysztof.restaurant.model.Board;
 
 @Repository
-public interface BoardRepository extends CrudRepository<Board, Long> {
+public interface BoardRepositoryCrud extends CrudRepository<Board, Long> {
 
 }

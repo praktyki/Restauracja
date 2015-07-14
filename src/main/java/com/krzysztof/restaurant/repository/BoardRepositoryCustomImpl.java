@@ -28,4 +28,11 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom {
 		return resultList == null ? Collections.emptyList() : resultList;
 	}
 
+	@Override
+	public Collection<Board> getAllBoards() {
+		TypedQuery<Board> query = entityManager.createQuery("SELECT b FROM Board b", Board.class);
+		List<Board> resultList = query.getResultList();
+		return resultList == null ? Collections.emptyList() : resultList;
+	}
+
 }

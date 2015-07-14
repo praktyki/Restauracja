@@ -16,19 +16,25 @@ public class SingleOrder extends AbstractOrder {
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	private Collection<MenuPosition> collectionOfMenuPositions = new ArrayList<>();
 
-	public Collection<MenuPosition> getCollectionOfMenuPositions() {
-		return collectionOfMenuPositions;
-	}
-
 	@Override
-	public Receipt getReceipt() {
+	public Receipt fetchReceipt() {
 		setOrderStatus(Status.CHECKOUT);
 		return new Receipt(collectionOfMenuPositions);
 	}
 
-	public void setCollectionOfMenuPositions(
-			Collection<MenuPosition> collectionOfMenuPositions) {
+	public Collection<MenuPosition> getCollectionOfMenuPositions() {
+		return collectionOfMenuPositions;
+	}
+
+	public void setCollectionOfMenuPositions(Collection<MenuPosition> collectionOfMenuPositions) {
 		this.collectionOfMenuPositions = collectionOfMenuPositions;
+	}
+
+	@Override
+	public String toString() {
+		return "SingleOrder [collectionOfMenuPositions=" + collectionOfMenuPositions + ", getOrderStatus()="
+				+ getOrderStatus() + ", getCreationDate()=" + getCreationDate() + ", getOrderId()=" + getOrderId()
+				+ "]";
 	}
 
 }

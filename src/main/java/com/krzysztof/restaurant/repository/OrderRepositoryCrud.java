@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.krzysztof.restaurant.model.AbstractOrder;
 
 @Repository
-public interface OrderRepository extends CrudRepository<AbstractOrder, Long> {
+public interface OrderRepositoryCrud extends CrudRepository<AbstractOrder, Long> {
 
 }

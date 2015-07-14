@@ -5,7 +5,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Version;
 
 @Entity
@@ -13,7 +13,7 @@ public class Board extends AbstractEntity {
 
 	private int capacity;
 
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	private Collection<AbstractOrder> ordersCollection;
 
 	@Version

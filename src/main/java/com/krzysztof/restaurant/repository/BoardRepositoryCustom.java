@@ -7,4 +7,6 @@ import com.krzysztof.restaurant.model.Board;
 public interface BoardRepositoryCustom {
 	Collection<Board> findAllFreeBoards();
 
+	Collection<Board> getAllBoards();
+
 }

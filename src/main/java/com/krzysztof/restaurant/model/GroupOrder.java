@@ -16,21 +16,20 @@ public class GroupOrder extends AbstractOrder {
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	private Collection<AbstractOrder> collectionOfOrders = new ArrayList<>();
 
+	protected GroupOrder() {
+	}
+
 	public GroupOrder(Collection<AbstractOrder> abstractOrders) {
 		collectionOfOrders = abstractOrders;
 
-	}
-
-	public Collection<AbstractOrder> getCollectionOfOrders() {
-		return collectionOfOrders;
-	}
+	};
 
 	@Override
-	public Receipt getReceipt() {
+	public Receipt fetchReceipt() {
 		Receipt receipt = new Receipt();
 
 		for (AbstractOrder order : collectionOfOrders) {
-			receipt.addReceipt(order.getReceipt());
+			receipt.addReceipt(order.fetchReceipt());
 		}
 
 		setOrderStatus(Status.CHECKOUT);
@@ -38,8 +37,11 @@ public class GroupOrder extends AbstractOrder {
 		return receipt;
 	}
 
-	public void setCollectionOfOrders(
-			Collection<AbstractOrder> collectionOfOrders) {
+	public Collection<AbstractOrder> getCollectionOfOrders() {
+		return collectionOfOrders;
+	}
+
+	public void setCollectionOfOrders(Collection<AbstractOrder> collectionOfOrders) {
 		this.collectionOfOrders = collectionOfOrders;
 	}
 

@@ -18,22 +18,22 @@ public abstract class AbstractOrder extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private Status orderStatus;
 
+	public abstract Receipt fetchReceipt();
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
 	public Status getOrderStatus() {
 		return orderStatus;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	public void setOrderStatus(Status orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-	
-	public abstract Receipt getReceipt();
-	
 }
