@@ -28,14 +28,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 		Board board = boardRepositoryCrud.findOne(boardId);
 		board.getOrdersCollection().add(groupOrder);
 		board.getOrdersCollection().addAll(groupOrder.getCollectionOfOrders());
+		boardRepositoryCrud.save(board);
 
 	}
 
 	@Override
 	public void addSingleOrder(SingleOrder singleOrder, long boardId) {
 		Board board = boardRepositoryCrud.findOne(boardId);
-		// singleOrder = orderRepositoryCrud.save(singleOrder);
-		System.out.println(singleOrder);
 		board.getOrdersCollection().add(singleOrder);
 		boardRepositoryCrud.save(board);
 	}
@@ -59,14 +58,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return board.getOrdersCollection();
 	}
 
-	// @Override
-	// public Collection<Board> getFreeBoards() {
-	// return boardRepositoryCustom.findAllFreeBoards();
-	// }
-
 	@Override
 	public Board getBoardById(long boardId) {
 		return boardRepositoryCrud.findOne(boardId);
+	}
+
+	@Override
+	public Collection<Board> getFreeBoards() {
+		return boardRepositoryCustom.findAllFreeBoards();
 	}
 
 	@Autowired

@@ -7,10 +7,17 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.krzysztof.restaurant.helpers.Receipt;
 
 @Entity
 @Inheritance
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.PROPERTY, property = "class")
+@JsonSubTypes(value = { @Type(value = SingleOrder.class, name = "single"),
+		@Type(value = GroupOrder.class, name = "group") })
 public abstract class AbstractOrder extends AbstractEntity {
 
 	private Date creationDate;

@@ -21,8 +21,9 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom {
 
 	@Override
 	public Collection<Board> findAllFreeBoards() {
-		TypedQuery<Board> createQuery = entityManager.createQuery("SELECT b FROM Board b WHERE b.collectionOfOrders",
-				Board.class);
+
+		TypedQuery<Board> createQuery = entityManager.createQuery(
+				"SELECT b FROM Board b JOIN FETCH b.ordersCollection c WHERE SIZE(c) < b.capacity", Board.class);
 		createQuery.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 		List<Board> resultList = createQuery.getResultList();
 		return resultList == null ? Collections.emptyList() : resultList;

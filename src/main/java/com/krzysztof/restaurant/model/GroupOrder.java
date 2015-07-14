@@ -19,11 +19,6 @@ public class GroupOrder extends AbstractOrder {
 	protected GroupOrder() {
 	}
 
-	public GroupOrder(Collection<AbstractOrder> abstractOrders) {
-		collectionOfOrders = abstractOrders;
-
-	};
-
 	@Override
 	public Receipt fetchReceipt() {
 		Receipt receipt = new Receipt();

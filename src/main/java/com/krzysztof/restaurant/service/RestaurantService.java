@@ -19,7 +19,7 @@ public interface RestaurantService {
 
 	Collection<AbstractOrder> getAllOrders(long tableId);
 
-	// Collection<Board> getFreeBoards();
-
 	Board getBoardById(long boardId);
+
+	Collection<Board> getFreeBoards();
 }
